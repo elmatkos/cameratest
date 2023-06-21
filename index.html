@@ -35,7 +35,31 @@
     </div>
 
     <script>
+        // Retrieve stored data if available
+        window.addEventListener('DOMContentLoaded', () => {
+            const userIdInput = document.getElementById('userId');
+            const passwordInput = document.getElementById('password');
+            
+            const storedUserId = localStorage.getItem('userId');
+            const storedPassword = localStorage.getItem('password');
+            
+            if (storedUserId && storedPassword) {
+                userIdInput.value = storedUserId;
+                passwordInput.value = storedPassword;
+            }
+        });
+
         function checkConnection() {
+            const userIdInput = document.getElementById('userId');
+            const passwordInput = document.getElementById('password');
+            
+            const userId = userIdInput.value;
+            const password = passwordInput.value;
+            
+            // Save the entered data to localStorage
+            localStorage.setItem('userId', userId);
+            localStorage.setItem('password', password);
+
             fetch('/check-connection')
                 .then(response => response.text())
                 .then(result => {
